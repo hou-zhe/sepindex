@@ -1,0 +1,171 @@
+// cover some element-ui styles
+.el-breadcrumb__inner {
+
+}
+.el-breadcrumb__inner,
+.el-breadcrumb__inner a {
+  font-weight: 400 !important;
+  color: #fff;
+}
+
+.el-upload {
+  input[type="file"] {
+    display: none !important;
+  }
+}
+.el-upload__input {
+  display: none;
+}
+
+
+// to fixed https://github.com/ElemeFE/element/issues/2461
+.el-dialog {
+  transform: none;
+  left: 0;
+  position: relative;
+  margin: 0 auto;
+  background-color: #f2f2f2;
+  margin-top: 11vh !important;
+  border-radius: 10px;
+  overflow: hidden;
+  // background-color: rgba(60,60,60,0.9);
+  // backdrop-filter: blur(40px);
+  .el-dialog__header {
+    background-color: #f2f2f2;
+    // backdrop-filter: blur(40px);
+
+    border-bottom: 1px solid #ccc;
+    .el-dialog__title {
+      font-weight: bold;
+      color: #333;
+      font-size: 16px;
+    }
+  }
+  // .el-dialog__body {
+  //   .el-form-item__label {
+  //     color: #fff;
+  //   }
+  // }
+}
+
+// refine element ui upload
+.upload-container {
+  .el-upload {
+    width: 100%;
+
+    .el-upload-dragger {
+      width: 100%;
+      height: 200px;
+    }
+  }
+}
+
+// dropdown
+.el-dropdown-menu {
+  a {
+    display: block
+  }
+}
+
+// to fix el-date-picker css style
+.el-range-separator {
+  box-sizing: content-box;
+}
+.el-table__fixed, .el-table__fixed-right {
+  box-shadow: 0 0 10px rgb(0 0 0 / 12%) !important;
+  // height: auto !important; // 让固定列的高自适应，且设置!important覆盖ele-ui的默认样式
+  bottom: 0px !important; // 固定列默认设置了定位，position: absolute;top: 0;left: 0;只需要再设置一下bottom的值，让固定列和父元素的底部出现距离即可
+}
+.el-form-item__label {
+  padding: 0 22px 0 0;
+}
+// table {
+//   width: 100% !important;
+// }
+// 解决表格滚动到底部时固定列与其余列错位问题
+// .el-table__fixed-body-wrapper {
+//  height: calc(100% - 57px) !important;
+//  padding-bottom: 17px;
+//  box-sizing: content-box;
+// }
+.el-table {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+// 表格右侧固定栏底部横线隐藏
+.el-table__fixed-right::before {
+ display: none;
+}
+.el-table__body-wrapper {
+
+}
+.el-table__body-wrapper::-webkit-scrollbar{
+  width:10px;
+  height:10px;
+}
+.el-table__body-wrapper::-webkit-scrollbar-track{
+  // background: rgb(239, 239, 239);
+  border-radius:2px;
+}
+.el-table__body-wrapper::-webkit-scrollbar-thumb{
+  background: #bfbfbf;
+  border-radius:10px;
+}
+.el-table__body-wrapper::-webkit-scrollbar-thumb:hover{
+  // background: #333;
+}
+.el-table__body-wrapper::-webkit-scrollbar-corner{
+  background: #179a16;
+}
+// .el-table th, .el-table tr {
+//   background-color: $bgColor;
+//   color: #fff;
+// }
+// .el-table th, .el-table tr:hover {
+//   background-color: $bgColor;
+// }
+// .el-table tbody tr.hover-row>td {
+//   background-color: $bgColor;
+//   color:#66b1ff;
+// }
+// .el-table thead tr th {
+//   background-color: $bgColor !important;
+//   color: #fff !important;
+// }
+
+// .el-checkbox-group {
+//   .el-checkbox {
+//     color: #fff;
+//   }
+// }
+// .el-radio-group {
+//   .el-radio {
+//     color: #fff;
+//   }
+// }
+.el-tabs {
+  overflow: hidden;
+}
+.el-tabs--border-card>.el-tabs__header {
+  background-color: #F7F7F8;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  // overflow: hidden;
+}
+.el-tabs__content {
+  background-color: #fff;
+  padding: 20px 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+.el-steps--simple {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+}
+.el-form {
+  background-color: #fff;
+  padding: 20px 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
