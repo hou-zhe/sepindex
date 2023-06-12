@@ -74,10 +74,10 @@
         </el-popover>
        </div>
 
-        <div class="bill-detail-ctr-item">开房批次：<span class="cashier-money">{{header.total_price}}</span> 次</div>
-        <div class="bill-detail-ctr-item">退单批次：<span class="cashier-money">{{header.total_amount}}</span> 次</div>
-        <div class="bill-detail-ctr-item">赠送批次：<span class="cashier-money">{{header.total_discount}}</span> 次</div>
-        <div class="bill-detail-ctr-item">招待批次：<span class="cashier-money">{{header.total_refund}}</span> 次</div>
+        <div class="bill-detail-ctr-item">开房批次：<span class="cashier-money">{{header.open_batch}}</span> 次</div>
+        <div class="bill-detail-ctr-item">退单批次：<span class="cashier-money">{{header.refund_batch}}</span> 次</div>
+        <div class="bill-detail-ctr-item">赠送批次：<span class="cashier-money">{{header.present_batch}}</span> 次</div>
+        <div class="bill-detail-ctr-item">招待批次：<span class="cashier-money">{{header.entertain_batch}}</span> 次</div>
       </div>
     </div>
 
@@ -85,105 +85,130 @@
       <el-table-column align="center" type="expand">
         <template slot-scope="props">
                 <el-form label-position="left" inline class="demo-table-expand">
-                  <el-form-item label="商品名称">
-                    <span>{{ props.row.name }}</span>
+                  <el-form-item label="账单日">
+                    <span>{{ props.row.bill_date }}</span>
                   </el-form-item>
-                  <el-form-item label="所属店铺">
-                    <span>{{ props.row.shop }}</span>
+                  <el-form-item label="单号">
+                    <span>{{ props.row.party_num }}</span>
                   </el-form-item>
-                  <el-form-item label="商品 ID">
-                    <span>{{ props.row.id }}</span>
+                  <el-form-item label="门店">
+                    <span>{{ props.row.store_name }}</span>
                   </el-form-item>
-                  <el-form-item label="店铺 ID">
-                    <span>{{ props.row.shopId }}</span>
+                  <el-form-item label="房型">
+                    <span>{{ props.row.room_type_name }}</span>
                   </el-form-item>
-                  <el-form-item label="商品分类">
-                    <span>{{ props.row.category }}</span>
+                  <el-form-item label="房号">
+                    <span>{{ props.row.room_name }}</span>
                   </el-form-item>
-                  <el-form-item label="店铺地址">
-                    <span>{{ props.row.address }}</span>
+                  <el-form-item label="单据类型">
+                    <span>{{ props.row.status_text }}</span>
                   </el-form-item>
-                  <el-form-item label="商品描述">
-                    <span>{{ props.row.desc }}</span>
+                  <el-form-item label="应收金额">
+                    <span>{{ props.row.price }}</span>
+                  </el-form-item>
+                  <el-form-item label="实收金额">
+                    <span>{{ props.row.total_fee }}</span>
+                  </el-form-item>
+                  <el-form-item label="开房时间">
+                    <span>{{ props.row.started_at }}</span>
+                  </el-form-item>
+                  <el-form-item label="关房时间">
+                    <span>{{ props.row.finished_at }}</span>
+                  </el-form-item>
+                  <el-form-item label="购买时长(分钟)">
+                    <span>{{ props.row.duration }}</span>
+                  </el-form-item>
+                  <el-form-item label="赠送">
+                    <span>{{props.row.present > 0? props.row.present: 0}}</span>
+                  </el-form-item>
+
+                  <el-form-item label="招待">
+                    <span>{{props.row.entertain > 0? props.row.entertain : 0}}</span>
+                  </el-form-item>
+                  <el-form-item label="开房人">
+                    <span>{{ props.row.operator_name }}</span>
+                  </el-form-item>
+                  <el-form-item label="备注">
+                    <span>{{ props.row.remark }}</span>
                   </el-form-item>
                 </el-form>
               </template>
         </el-table-column>
 
-			<el-table-column align="center" label="账单日" type="expand">
+			<el-table-column align="center" label="账单日">
 				<template slot-scope="{ row }">
-					{{row.receivables}}
+					{{row.bill_date}}
 				</template>
 			</el-table-column>
       <el-table-column align="center" label="单号">
 				<template slot-scope="{ row }">
-					{{row.discount_amount}}
+					{{row.party_num}}
 				</template>
 			</el-table-column>
       <el-table-column align="center" label="门店" width="100">
 				<template slot-scope="{ row }">
-					{{row.refund_amount}}
+					{{row.store_name}}
 				</template>
 			</el-table-column>
 			<el-table-column align="center" label="房型">
 				<template slot-scope="{ row }">
-					{{row.real_amount}}
+					{{row.room_type_name}}
 				</template>
 			</el-table-column>
       <el-table-column align="center" label="房号" width="180">
 				<template slot-scope="{ row }">
-					{{row.allin_amount}}
+					{{row.room_name}}
 				</template>
 			</el-table-column>
 			<el-table-column align="center" label="单据类型" width="100">
 				<template slot-scope="{ row }">
-					{{row.cash_amount}}
+					{{row.status_text}}
 				</template>
 			</el-table-column>
 			<el-table-column align="center" label="应收金额" width="100">
 				<template slot-scope="{ row }">
-					{{row.groupon_amount}}
+					{{row.price}}
 				</template>
 			</el-table-column>
 			<el-table-column align="center" label="实收金额" width="180">
 				<template slot-scope="{ row }">
-					{{row.party_amount}}
+					{{row.total_fee}}
 				</template>
 			</el-table-column>
 			<el-table-column align="center" label="开房时间" width="180">
 				<template slot-scope="{ row }">
-					{{row.goods_amount}}
+					{{row.started_at}}
 				</template>
 			</el-table-column>
 
 			<el-table-column align="center" label="关房时间" width="100">
 				<template slot-scope="{ row }">
-					{{row.count_batch}}
+					{{row.finished_at}}
 				</template>
 			</el-table-column>
       <el-table-column align="center" label="购买时长(分钟)" width="100">
       	<template slot-scope="{ row }">
-      		{{row.count_batch}}
+      		{{row.duration}}
       	</template>
       </el-table-column>
       <el-table-column align="center" label="赠送" width="100">
       	<template slot-scope="{ row }">
-      		{{row.count_batch}}
+      		{{row.present > 0? row.present: 0}}
       	</template>
       </el-table-column>
       <el-table-column align="center" label="招待" width="100">
       	<template slot-scope="{ row }">
-      		{{row.count_batch}}
+      		{{row.entertain > 0? row.entertain : 0}}
       	</template>
       </el-table-column>
       <el-table-column align="center" label="开房人" width="100">
       	<template slot-scope="{ row }">
-      		{{row.count_batch}}
+      		{{row.operator_name}}
       	</template>
       </el-table-column>
       <el-table-column align="center" label="备注" width="100">
       	<template slot-scope="{ row }">
-      		{{row.count_batch}}
+      		{{row.remark}}
       	</template>
       </el-table-column>
 		</el-table>
@@ -318,10 +343,10 @@ export default {
       this.getTime(0)
     },
     onExport(){
-      let href = process.env.VUE_APP_BASE_API + '/cashier/report/daily/export?store_id=' + this.id + '&room_type_id=' + this.search.type +
-        '&room_id=' + this.search.room + '&start=' + this.search.time[0] + '&end=' + this.search.time[1] + '&limit=' + this.pages.total
+      let href = process.env.VUE_APP_BASE_API + '/cashier/report/party/export?store_id=' + this.id + '&room_type_id=' + this.search.type +
+        '&room_id=' + this.search.room + '&status=' + this.search.invoice +  '&start=' + this.search.time[0] + '&end=' + this.search.time[1] + '&limit=' + this.pages.total
       window.location.href = href
-      this.$message.success('导出收银流水' + this.search.time[0] + '~' + this.search.time[1]  +'区间' + this.pages.total +  '条数据成功')
+      this.$message.success('导出账单明细' + this.search.time[0] + '~' + this.search.time[1]  +'区间' + this.pages.total +  '条数据成功')
     },
 		onSizeChange(val) {
       this.pages.pageSize = val
@@ -334,7 +359,20 @@ export default {
 	}
 };
 </script>
-
+<style>
+  .demo-table-expand {
+      font-size: 0;
+    }
+    .demo-table-expand label {
+      width: 120px;
+      color: #99a9bf;
+    }
+    .demo-table-expand .el-form-item {
+      margin-right: 0;
+      margin-bottom: 0;
+      width: 50%;
+    }
+</style>
 <style lang="scss" scoped>
 .icon-info{
 

@@ -656,12 +656,6 @@
       width="55%"
     >
       <div style="display: flex; margin: -20px 0 30px">
-        <el-input
-          v-model.trim="goods.name"
-          placeholder="搜索物品名称"
-          style="width: 30%; margin-right: 20px"
-          @keyup.enter.native="onSearchGoods"
-        ></el-input>
         <el-select
           v-model="goods.type"
           placeholder="请选择物品种类"
@@ -675,6 +669,13 @@
             :value="item.id"
           ></el-option>
         </el-select>
+        <el-input
+          v-model.trim="goods.name"
+          placeholder="搜索物品名称"
+          style="width: 30%; margin-left: 20px"
+          @keyup.enter.native="onSearchGoods"
+        ></el-input>
+        
       </div>
       <div style="display: flex; justify-content: space-between">
         <fieldset

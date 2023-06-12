@@ -81,111 +81,111 @@
         <div class="bill-detail-ctr-item">实收总计：<span class="cashier-money">{{header.total_amount}}</span> 元</div>
         <div class="bill-detail-ctr-item">优惠总计：<span class="cashier-money">{{header.total_discount}}</span> 元</div>
         <div class="bill-detail-ctr-item">退款总计：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
-        <div class="bill-detail-ctr-item">微信实收：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
-        <div class="bill-detail-ctr-item">支付宝实收：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
-        <div class="bill-detail-ctr-item">现金实收：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
-        <div class="bill-detail-ctr-item">POS机实收：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
-        <div class="bill-detail-ctr-item">招待实收：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
-        <div class="bill-detail-ctr-item">美团团购：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
-        <div class="bill-detail-ctr-item">抖音团购：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
-        <div class="bill-detail-ctr-item">其它团购：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
+        <div class="bill-detail-ctr-item">微信实收：<span class="cashier-money">{{header.total_wechat}}</span> 元</div>
+        <div class="bill-detail-ctr-item">支付宝实收：<span class="cashier-money">{{header.total_alipay}}</span> 元</div>
+        <div class="bill-detail-ctr-item">现金实收：<span class="cashier-money">{{header.total_cash}}</span> 元</div>
+        <div class="bill-detail-ctr-item">POS机实收：<span class="cashier-money">{{header.total_pos}}</span> 元</div>
+        <div class="bill-detail-ctr-item">招待实收：<span class="cashier-money">{{header.total_entertain}}</span> 元</div>
+        <div class="bill-detail-ctr-item">美团团购：<span class="cashier-money">{{header.total_meituan}}</span> 元</div>
+        <div class="bill-detail-ctr-item">抖音团购：<span class="cashier-money">{{header.total_douyin}}</span> 元</div>
+        <div class="bill-detail-ctr-item">其它团购：<span class="cashier-money">{{header.total_groupon}}</span> 元</div>
       </div>
     </div>
 
 		<el-table class="table-fixed" :data="list"  stripe border fit highlight-current-row :header-cell-style="{background:'#f5f7fa',color:'#606266'}" v-loading="loading">
 			<el-table-column align="center" label="账单日">
 				<template slot-scope="{ row }">
-					{{row.receivables}}
+					{{row.bill_date}}
 				</template>
 			</el-table-column>
       <el-table-column align="center" label="单号">
 				<template slot-scope="{ row }">
-					{{row.discount_amount}}
+					{{row.order_no}}
 				</template>
 			</el-table-column>
       <el-table-column align="center" label="门店" width="100">
 				<template slot-scope="{ row }">
-					{{row.refund_amount}}
+					{{row.store_name}}
 				</template>
 			</el-table-column>
 			<el-table-column align="center" label="房型">
 				<template slot-scope="{ row }">
-					{{row.real_amount}}
+					{{row.room_type_name}}
 				</template>
 			</el-table-column>
-      <el-table-column align="center" label="房号" width="180">
+      <el-table-column align="center" label="房号">
 				<template slot-scope="{ row }">
-					{{row.allin_amount}}
+					{{row.room_name}}
 				</template>
 			</el-table-column>
-			<el-table-column align="center" label="单据类型" width="100">
+			<el-table-column align="center" label="单据类型">
 				<template slot-scope="{ row }">
-					{{row.cash_amount}}
+					{{row.status_text}}
 				</template>
 			</el-table-column>
-      <el-table-column align="center" label="支付方式" width="100">
+      <el-table-column align="center" label="支付方式">
       	<template slot-scope="{ row }">
-      		{{row.groupon_amount}}
+      		{{row.payment_method_text}}
       	</template>
       </el-table-column>
       <el-table-column align="center" label="折扣率" width="100">
       	<template slot-scope="{ row }">
-      		{{row.groupon_amount}}
+      		{{row.discounts_rate}}
       	</template>
       </el-table-column>
       <el-table-column align="center" label="应收" width="100">
       	<template slot-scope="{ row }">
-      		{{row.groupon_amount}}
+      		{{row.receivables}}
       	</template>
       </el-table-column>
       <el-table-column align="center" label="优惠" width="100">
       	<template slot-scope="{ row }">
-      		{{row.groupon_amount}}
+      		{{row.discount_amount}}
       	</template>
       </el-table-column>
       <el-table-column align="center" label="退款" width="100">
       	<template slot-scope="{ row }">
-      		{{row.groupon_amount}}
+      		{{row.refund_amount}}
       	</template>
       </el-table-column>
       <el-table-column align="center" label="实收" width="100">
       	<template slot-scope="{ row }">
-      		{{row.groupon_amount}}
+      		{{row.real_amount}}
       	</template>
       </el-table-column>
       <el-table-column align="center" label="交易单号" width="100">
       	<template slot-scope="{ row }">
-      		{{row.groupon_amount}}
+      		{{row.transaction_id}}
       	</template>
       </el-table-column>
 
 			<el-table-column align="center" label="支付时间" width="100">
 				<template slot-scope="{ row }">
-					{{row.groupon_amount}}
+					{{row.paid_at}}
 				</template>
 			</el-table-column>
-			<el-table-column align="center" label="退款时间" width="180">
+			<el-table-column align="center" label="退款时间" width="100">
 				<template slot-scope="{ row }">
-					{{row.party_amount}}
+					{{row.refunded_at}}
 				</template>
 			</el-table-column>
 			<el-table-column align="center" label="备注" width="180">
 				<template slot-scope="{ row }">
-					{{row.goods_amount}}
+					{{row.pay_desc}}
 				</template>
 			</el-table-column>
 
 			<el-table-column align="center" label="创建时间" width="100">
 				<template slot-scope="{ row }">
-					{{row.count_batch}}
+					{{row.created_at}}
 				</template>
 			</el-table-column>
       <el-table-column align="center" label="结账人" width="100">
       	<template slot-scope="{ row }">
-      		{{row.count_batch}}
+      		{{row.operator_name}}
       	</template>
       </el-table-column>
-      <el-table-column align="center" label="操作" width="240">
+      <el-table-column align="center" label="操作" width="100" fixed="right">
       	<template slot-scope="{ row }">
       		<el-button type="primary" size="mini" @click="onBack(row)" style="margin-left: 10px;">退款</el-button>
       	</template>
@@ -272,8 +272,6 @@ export default {
     this.init()
 
   },
-  mounted() {
-  },
   methods: {
     async init(){
       await storeselect(this.id).then(res=>{
@@ -289,7 +287,7 @@ export default {
       await this.getTime(0)
     },
     getTime(e){
-      // this.loading = true
+      this.loading = true
       if(e == 0) {
         let data = new Date()
         let year = data.getFullYear()
@@ -302,12 +300,12 @@ export default {
         this.search.time.push(time,time)
       }
 
-      // reportpayorder(this.id, this.search.type, this.search.room,this.search.invoice, this.search.time[0],this.search.time[1],this.pages.page, this.pages.pageSize).then(res=>{
-      //   this.loading = false
-      //   this.list = res.result.data
-      //   this.header = res.result.header
-      //   this.pages.total = res.result.total
-      // })
+      reportpayorder(this.id, this.search.type, this.search.room,this.search.invoice, this.search.desc, this.search.time[0],this.search.time[1],this.pages.page, this.pages.pageSize).then(res=>{
+        this.loading = false
+        this.list = res.result.data
+        this.header = res.result.header
+        this.pages.total = res.result.total
+      })
     },
     onSearch(){
       this.pages.page = 1
@@ -329,7 +327,26 @@ export default {
       this.$message.success('导出付款明细' + this.search.time[0] + '~' + this.search.time[1]  +'区间' + this.pages.total +  '条数据成功')
     },
     onBack(obj){
-
+      this.$prompt("请输入退款备注？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        inputErrorMessage: '输入不能为空',
+        inputValidator: (value) => {
+          if(!value) {
+            return '输入不能为空'
+          }
+        }
+      }).then((value) => {
+        console.log(value,'value')
+        console.log(obj,'obj')
+        // reportpayorderrefund({ id }).then((res) => {
+        //   if (res.code == 0) {
+        //     this.$message.success("删除成功");
+        //     this.init();
+        //   }
+        // });
+      });
     },
 		onSizeChange(val) {
       this.pages.pageSize = val

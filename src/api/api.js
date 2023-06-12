@@ -1017,19 +1017,19 @@ export function goodsrefund(params) {
 
 
 // 入库列表
-export function storagelist(store_id,good_type_id,goods_id,start,end,page,limit) {
+export function storagelist(store_id,good_type_id,goods_name,start,end,page,limit) {
   return request({
     url: "/cashier/storage/list",
     method: "get",
-    params: {store_id,good_type_id,goods_id,start,end,page,limit}
+    params: {store_id,good_type_id,goods_name,start,end,page,limit}
   });
 }
 // 提交入库
-export function storageadd(params) {
+export function storageadd(data) {
   return request({
     url: "/cashier/storage/add",
     method: "post",
-    params
+    data
   });
 }
 // 导出入库
@@ -1107,7 +1107,7 @@ export function reportparty(store_id,room_type_id,room_id,status,start,end,page,
     params: {store_id,room_type_id,room_id,status,start,end,page,limit}
   });
 }
-
+// 付款明细表
 export function reportpayorder(store_id,room_type_id,room_id,status,pay_desc,start,end,page,limit) {
   return request({
     url: "/cashier/report/pay-order",
@@ -1116,10 +1116,50 @@ export function reportpayorder(store_id,room_type_id,room_id,status,pay_desc,sta
   });
 }
 // 退款
-export function reportpayorderrefund(store_id,id) {
+export function reportpayorderrefund(data) {
   return request({
     url: "/cashier/report/pay-order/refund",
+    method: "post",
+    data
+  });
+}
+// 仓库盘点
+export function inventorylist(store_id,good_type_id,goods_name,page,limit) {
+  return request({
+    url: "/cashier/inventory/list",
     method: "get",
-    params: {store_id,id}
+    params: {store_id,good_type_id,goods_name,page,limit}
+  });
+}
+// 盘点物品列表
+export function inventorystocktakinglist(store_id,good_type_id,page,limit) {
+  return request({
+    url: "/cashier/inventory/stocktaking/list",
+    method: "get",
+    params: {store_id,good_type_id,page,limit}
+  });
+}
+// 盘点提交
+export function inventorystocktakingadd(data) {
+  return request({
+    url: "/cashier/inventory/stocktaking/add",
+    method: "post",
+    data
+  });
+}
+// 盘点历史列表
+export function inventorystocktakinghistorylist(store_id,start,end,page,limit) {
+  return request({
+    url: "/cashier/inventory/stocktaking/history/list",
+    method: "get",
+    params: {store_id,start,end,page,limit}
+  });
+}
+// 盘点历史详情
+export function inventorystocktakinghistoryinfo(store_id,stocktaking_code,good_type_id) {
+  return request({
+    url: "/cashier/inventory/stocktaking/history/info",
+    method: "get",
+    params: {store_id,stocktaking_code,good_type_id}
   });
 }

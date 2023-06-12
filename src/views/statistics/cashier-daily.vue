@@ -39,7 +39,7 @@
 		</div>
     <div class="cashier-daily-ctr-wrapper">
       <div class="cashier-daily-ctr">
-        <div   @click="onNoteDialog">
+        <div>
         <el-popover
           placement="bottom"
           title="字段解释"
@@ -48,35 +48,32 @@
         >
         <div >
           <p class="tishi">应收总计：应收款的总和</p>
-          <p class="tishi"> 实收总计：实际到账的总和</p>
-          <p class="tishi">  优惠总计：实际优惠总和</p>
-          <p class="tishi"> 退款总计：实际退款总和</p>
-          <p class="tishi"> 实收总计=应收总计-优惠总计-退款总计</p>
+          <p class="tishi">实收总计：实际到账的总和</p>
+          <p class="tishi">优惠总计：实际优惠总和</p>
+          <p class="tishi">退款总计：实际退款总和</p>
+          <p class="tishi">实收总计=应收总计-优惠总计-退款总计</p>
           </div>
           <div  slot="reference"><i class="el-icon-info icon-info"></i></div>
         </el-popover>
-       </div> 
+       </div>
 
         <div class="cashier-daily-ctr-item">应收总计：<span class="cashier-money">{{header.total_price}}</span> 元</div>
         <div class="cashier-daily-ctr-item">实收总计：<span class="cashier-money">{{header.total_amount}}</span> 元</div>
         <div class="cashier-daily-ctr-item">优惠总计：<span class="cashier-money">{{header.total_discount}}</span> 元</div>
         <div class="cashier-daily-ctr-item">退款总计：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
-        <div class="cashier-daily-ctr-item">通联实收：<span class="cashier-money">{{header.total_allin}}</span> 元</div>
-        <div class="cashier-daily-ctr-item">现金实收：<span class="cashier-money">{{header.total_cash}}</span> 元</div>
-        <div class="cashier-daily-ctr-item">团购实收：<span class="cashier-money">{{header.total_groupon}}</span> 元</div>
-        <!-- <div class="cashier-daily-ctr-item">房费应收总计：<span class="cashier-money">{{header.party_receivables}}</span> 元</div> -->
-        <div class="cashier-daily-ctr-item">房费实收总计：<span class="cashier-money">{{header.party_amount}}</span> 元</div>
-        <!-- <div class="cashier-daily-ctr-item">商品应收总计：<span class="cashier-money">{{header.goods_receivables}}</span> 元</div> -->
-        <div class="cashier-daily-ctr-item">商品实收总计：<span class="cashier-money">{{header.goods_amount}}</span> 元</div>
-    
-       
-        <!-- <div class="cashier-daily-ctr-item">团购实收：<span class="cashier-money">{{header.total_price}}</span> 元</div> -->
-        <!-- <div class="cashier-daily-ctr-item">退款：<span class="cashier-money">{{header.total_refund}}</span> 元</div> -->
+        <div class="cashier-daily-ctr-item">微信实收：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
+        <div class="cashier-daily-ctr-item">支付宝实收：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
+        <div class="cashier-daily-ctr-item">现金实收：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
+        <div class="cashier-daily-ctr-item">POS机实收：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
+        <div class="cashier-daily-ctr-item">招待实收：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
+        <div class="cashier-daily-ctr-item">美团团购：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
+        <div class="cashier-daily-ctr-item">抖音团购：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
+        <div class="cashier-daily-ctr-item">其他团购：<span class="cashier-money">{{header.total_refund}}</span> 元</div>
       </div>
     </div>
 
 		<el-table class="table-fixed" :data="list"  stripe border fit highlight-current-row :header-cell-style="{background:'#f5f7fa',color:'#606266'}" v-loading="loading">
-			<el-table-column align="center" label="日期" style="max-width: 250px;" width="200" >
+			<el-table-column align="center" label="日期" width="100" >
 				<template slot-scope="{ row }">
 					{{row.cur_date}}
 				</template>
@@ -101,75 +98,58 @@
 					{{row.real_amount}}
 				</template>
 			</el-table-column>
-      <el-table-column align="center" label="通联实收" width="180">
-				<template slot-scope="{ row }">
-					{{row.allin_amount}}
-				</template>
-			</el-table-column>
-			<el-table-column align="center" label="现金实收" width="100">
-				<template slot-scope="{ row }">
-					{{row.cash_amount}}
-				</template>
-			</el-table-column>
-			<el-table-column align="center" label="团购实收" width="100">
-				<template slot-scope="{ row }">
-					{{row.groupon_amount}}
-				</template>
-			</el-table-column>
-			<!-- <el-table-column align="center" label="房费应收总计" width="180">
-				<template slot-scope="{ row }">
-					{{row.party_receivables}}
-				</template>
-			</el-table-column> -->
-			<el-table-column align="center" label="房费实收总计" width="180">
-				<template slot-scope="{ row }">
-					{{row.party_amount}}
-				</template>
-			</el-table-column>
-			<!-- <el-table-column align="center" label="商品应收总计" width="180">
-				<template slot-scope="{ row }">
-					{{row.goods_receivables}}
-				</template>
-			</el-table-column> -->
-			<el-table-column align="center" label="商品实收总计" width="180">
-				<template slot-scope="{ row }">
-					{{row.goods_amount}}
-				</template>
-			</el-table-column>
+
+     <el-table-column align="center" label="总批次">
+     	<template slot-scope="{ row }">
+     		{{row.count_batch}}
+     	</template>
+     </el-table-column>
+     <el-table-column align="center" label="微信实收">
+     	<template slot-scope="{ row }">
+     		{{row.wechat_amount}}
+     	</template>
+     </el-table-column>
+     <el-table-column align="center" label="支付宝实收" width="100">
+     	<template slot-scope="{ row }">
+     		{{row.alipay_amount}}
+     	</template>
+     </el-table-column>
+     <el-table-column align="center" label="现金实收">
+     	<template slot-scope="{ row }">
+     		{{row.cash_amount}}
+     	</template>
+     </el-table-column>
+     <el-table-column align="center" label="POS机实收" width="100">
+     	<template slot-scope="{ row }">
+     		{{row.pos_amount}}
+     	</template>
+     </el-table-column>
+     <el-table-column align="center" label="招待实收">
+     	<template slot-scope="{ row }">
+     		{{row.entertain_amount}}
+     	</template>
+     </el-table-column>
+     <el-table-column align="center" label="美团团购">
+     	<template slot-scope="{ row }">
+     		{{row.meituan_amount}}
+     	</template>
+     </el-table-column>
+     <el-table-column align="center" label="抖音团购">
+     	<template slot-scope="{ row }">
+     		{{row.douyin_amount}}
+     	</template>
+     </el-table-column>
+     <el-table-column align="center" label="其他团购">
+     	<template slot-scope="{ row }">
+     		{{row.groupon_amount}}
+     	</template>
+     </el-table-column>
 
 
-
-			<el-table-column align="center" label="总批次" width="100">
-				<template slot-scope="{ row }">
-					{{row.count_batch}}
-				</template>
-			</el-table-column>
-			<!-- <el-table-column align="center" label="操作">
-				<template slot-scope="{ row }">
-					<el-button type="info" size="mini">下架</el-button>
-					<el-button type="primary" size="mini" @click="onEdit(row)">修改</el-button>
-					<el-button type="danger" size="mini">删除</el-button>
-				</template>
-			</el-table-column> -->
 		</el-table>
 		<Costompagination :page="pages.page" :pageSize="pages.pageSize" :pageSizes="pages.pageSizes" :total="pages.total"
 			@onSizeChange="onSizeChange" @onCurrentChange="onCurrentChange" class="myPagination"
 		></Costompagination>
-    <!-- <p class="tishi">  应收总计：房费+商品，应收款的总和</p>
-    <p class="tishi">  实收总计：房费+商品，实际到账的总和，含通联实收、现金实收、团购实收</p>
-    <p class="tishi">  优惠总计：房费+商品，优惠总和</p>
-    <p class="tishi"> 退款总计：房费+商品，实际退款总和</p>
-    <p class="tishi"> 实收总计=应收总计-优惠总计-退款总计</p> -->
-  
-
-
-
-
-
-
-
-
-
 	</div>
 </template>
 
@@ -247,18 +227,6 @@ export default {
   mounted() {
   },
   methods: {
-    onNoteDialog() {
-      this.$alert(`<strong>应收总计：应收款的总和</strong><br/>
-                  <strong>实收总计：实际到账的总和</strong><br/>
-                  <strong>优惠总计：实际优惠总和</strong><br/>
-                  <strong>退款总计：实际退款总和</strong><br/>
-                  <strong>实收总计=应收总计-优惠总计-退款总计</strong><br/>
-                  `, '字段解释', {
-                          confirmButtonText: '确定',
-                          dangerouslyUseHTMLString: true,
-      });
-      
-     },
     async init(){
       await storeselect(this.id).then(res=>{
         this.storefrontList = res.result
@@ -331,7 +299,7 @@ font-size:20px;
 margin-right: 10px;
 }
 .myPagination{
-  margin-bottom: 30px !important; 
+  margin-bottom: 30px !important;
 
 }
 
@@ -349,7 +317,7 @@ margin-right: 10px;
 	padding: 20px;
 	box-sizing: border-box;
   .table-fixed {
-   
+
     ::v-deep .el-table__fixed-right {
       height: 100% !important;
     }

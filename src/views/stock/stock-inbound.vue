@@ -10,9 +10,12 @@
         </div>
         <div class="stock-inbound-top-item">
           <span style="flex-shrink: 0;margin-right: 10px;">物品名称</span>
-          <el-select v-model="search.good_id" placeholder="请选择物品名称" style="width: 200px;" @change="onSearch">
-            <el-option v-for="(item, index) in goodsNameList" :key="item.id" :label="item.name" :value="item.id"></el-option>
-          </el-select>
+          <el-input
+            v-model.trim="search.name"
+            placeholder="请输入物品名称"
+            style="width: 200px"
+            @keyup.enter.native="onSearch"
+          ></el-input>
         </div>
         <div class="stock-inbound-top-item">
           <span style="flex-shrink: 0;margin-right: 10px;">日期选择</span>
@@ -47,32 +50,32 @@
     <el-table class="table-fixed" :data="list" stripe border fit highlight-current-row :header-cell-style="{ background: '#f5f7fa', color: '#606266' }" v-loading="loading">
       <el-table-column align="center" label="入库仓库" style="max-width: 250px;" width="200">
         <template slot-scope="{ row }">
-          {{ row.cur_date }}
+          {{ row.warehouse }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="物品名称">
         <template slot-scope="{ row }">
-          {{ row.receivables }}
+          {{ row.goods_name }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="物品种类">
         <template slot-scope="{ row }">
-          {{ row.discount_amount }}
+          {{ row.goods_type_name }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="入库数量" width="100">
         <template slot-scope="{ row }">
-          {{ row.refund_amount }}
+          {{ row.storage_quantity }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="入库后库存量" width="200">
         <template slot-scope="{ row }">
-          {{ row.real_amount }}
+          {{ row.inv_quantity }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="入库时间">
         <template slot-scope="{ row }">
-          {{ row.allin_amount }}
+          {{ row.created_at }}
         </template>
       </el-table-column>
     </el-table>
@@ -92,12 +95,6 @@
       width="55%"
     >
       <div style="display: flex; margin: -20px 0 30px">
-        <el-input
-          v-model="goods.name"
-          placeholder="搜索物品名称"
-          style="width: 30%; margin-right: 20px"
-          @keyup.enter.native="onSearchGoods"
-        ></el-input>
         <el-select
           v-model="goods.type"
           placeholder="请选择物品种类"
@@ -111,6 +108,12 @@
             :value="item.id"
           ></el-option>
         </el-select>
+        <el-input
+          v-model="goods.name"
+          placeholder="搜索物品名称"
+          style="width: 30%; margin-left: 20px"
+          @keyup.enter.native="onSearchGoods"
+        ></el-input>
       </div>
       <div style="display: flex; justify-content: space-between">
         <fieldset
@@ -199,10 +202,17 @@
                 {{ row.unit }}
               </template>
             </el-table-column>
-            <el-table-column align="center" label="数量">
+            <el-table-column align="center" >
+              <template slot="header">
+                <el-popover placement="top-start" title="" width="80" trigger="hover" content="双击修改数量">
+                    <i slot="reference" style="position: absolute;right: 5px;top: 0px;" class="el-icon-warning"></i>
+                  </el-popover>
+                数量
+              </template>
               <template slot-scope="{ row }">
                 <template v-if="row.isEdit">
-                  <div style="width:100%;height: 100%" @dblclick="row.isEdit = false">
+
+                  <div style="width:100%;height: 100%;position: relative;" @dblclick="row.isEdit = false">
                     {{row.num}}
                   </div>
                 </template>
@@ -211,7 +221,7 @@
                     type="number"
                     v-model="row.num"
                     @blur="row.isEdit = true"
-                    oninput="value=value.replace(/^(0+)|[^\d]+/g,'')"
+                    oninput="value=value.replace(/^(-1+)|[^\d]+/g,'')"
                     @keyup.enter.native="isSave ? '' : onConfirmNum(row)"
                   ></el-input>
                 </template>
@@ -256,7 +266,7 @@ export default {
       id: 0,
       search: {
         type: '',
-        good_id: '',
+        name: '',
         time: []
       },
       loading: false,
@@ -322,7 +332,7 @@ export default {
     },
 
     getTime(e) {
-      // this.loading = true;
+      this.loading = true;
       if (e == 0) {
         let data = new Date();
         let year = data.getFullYear();
@@ -334,15 +344,11 @@ export default {
 
         this.search.time.push(time, time);
       }
-      storagelist(this.id,this.search.type,this.search.good_id,this.search.time[0], this.search.time[1],this.pages.page, this.pages.pageSize).then(res=>{
-        console.log(res,'res')
+      storagelist(this.id,this.search.type,this.search.name,this.search.time[0], this.search.time[1],this.pages.page, this.pages.pageSize).then(res=>{
+        this.loading = false
+        this.list = res.result.data
+        this.pages.total = res.result.total
       })
-      // cashierreportdaily(this.id, this.search.type, this.search.room, this.search.time[0], this.search.time[1], this.pages.page, this.pages.pageSize).then(res => {
-      //   this.loading = false;
-      //   this.list = res.result.data;
-      //   this.header = res.result.header;
-      //   this.pages.total = res.result.total;
-      // });
     },
     async onInbound(){
       this.goods.type = "";
@@ -375,7 +381,7 @@ export default {
     },
     onSearchZero() {
       this.search.type = '';
-      this.search.good_id = '';
+      this.search.name = '';
       this.search.time = [];
       this.pages.page = 1;
       this.pages.pageSize = 10;
@@ -459,11 +465,28 @@ export default {
       }
     },
     onConfirmNum(obj){
-      console.log(obj,'obj')
-
     },
     onGoodsConfirm(){
-      console.log(this.ChoseGoodsList,'chise')
+      let goods = []
+      goods =  this.ChoseGoodsList.map(item =>{
+        return {
+          good_id: item.id,
+          storage_quantity: Number(item.num)
+        }
+      })
+      if(goods.length > 0) {
+        storageadd({
+          store_id: this.id,
+          goods: goods
+        }).then(res=>{
+          this.$message.success('入库成功')
+          this.dialogGoods = false
+          this.getTime(1)
+          this.ChoseGoodsList = []
+          this.goods.name = ''
+          this.goods.type = ''
+        })
+      }
     },
     onSizeChange(val) {
       this.pages.pageSize = val;
